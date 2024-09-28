@@ -22,12 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Checkout APISIX code
-        run: |
-          git clone https://github.com/arbor-95/local-apisix.git
-
       - name: Build image
         run: |
           cd debian-dev && \
-          mv ../local-apisix ./ && \ 
+          git clone https://github.com/arbor-95/local-apisix.git && \
           docker build -t ${APISIX_IMAGE_TAG} --build-arg CODE_PATH=./local-apisix -f ./Dockerfile.local .
