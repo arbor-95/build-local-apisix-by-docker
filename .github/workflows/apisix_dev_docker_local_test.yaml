@@ -5,7 +5,8 @@ on:
 
 
 env:
-  APISIX_IMAGE_TAG: "apisix-local:3.10"
+  APISIX_IMAGE_NAME: "apisix-local"
+  APISIX_IMAGE_TAG: "3.10"
 
 jobs:
 
@@ -29,16 +30,16 @@ jobs:
         run: |
           cd debian-dev && \
           mv ../local-apisix ./ && \
-          docker build -t ${APISIX_IMAGE_TAG} --build-arg CODE_PATH=./local-apisix -f ./Dockerfile.local .
+          docker build -t ${APISIX_IMAGE_NAME}:${APISIX_IMAGE_TAG} --build-arg CODE_PATH=./local-apisix -f ./Dockerfile.local .
 
       - name: Save Images Local
         run: |
-          docker save ${APISIX_IMAGE_TAG} > apisix.tar
+          docker save ${APISIX_IMAGE_NAME}:${APISIX_IMAGE_TAG} > ${APISIX_IMAGE_NAME}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${APISIX_IMAGE_TAG}
+          name: ${{env.APISIX_IMAGE_NAME}}
           path: apisix.tar
           retention-days: 1
 
