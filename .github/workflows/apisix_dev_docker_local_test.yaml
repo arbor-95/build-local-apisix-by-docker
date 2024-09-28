@@ -29,4 +29,4 @@ jobs:
       - name: Build image
         run: |
           cd debian-dev && \
-          docker build -t ${APISIX_IMAGE_TAG} --build-arg CODE_PATH=local-apisix -f ./Dockerfile.local .
+          docker build -t ${APISIX_IMAGE_TAG} --build-arg CODE_PATH=./local-apisix -f ./Dockerfile.local .
