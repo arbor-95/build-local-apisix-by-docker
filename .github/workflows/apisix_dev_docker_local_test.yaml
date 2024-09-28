@@ -5,8 +5,7 @@ on:
 
 
 env:
-  APISIX_IMAGE_TAG: "local-debian-dev"
-  APISIX_VERSION: "local"
+  APISIX_IMAGE_TAG: "apisix-local:3.10"
 
 jobs:
 
@@ -22,8 +21,27 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Checkout APISIX code
+        run: |
+          git clone https://github.com/arbor-95/local-apisix.git
+
       - name: Build image
         run: |
           cd debian-dev && \
-          git clone https://github.com/arbor-95/local-apisix.git && \
+          mv ../local-apisix ./ && \
           docker build -t ${APISIX_IMAGE_TAG} --build-arg CODE_PATH=./local-apisix -f ./Dockerfile.local .
+
+      - name: Save Images Local
+        run: |
+          docker save ${APISIX_IMAGE_TAG} > apisix.tar
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${APISIX_IMAGE_TAG}
+          path: apisix.tar
+          retention-days: 1
+
+      - name: Clean up
+        run: |
+          rm apisix.tar
