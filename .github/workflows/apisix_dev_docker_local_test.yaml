@@ -1,17 +1,8 @@
 name: CI for docker image built from local source code
 
 on:
-  schedule:
-    - cron: "0 1 * * *"
-  push:
-    branches: [master]
-    paths-ignore:
-      - 'docs/**'
-      - '**/*.md'
-  pull_request:
-    branches:
-      - master
-      - 'release/apisix-2.15.**'
+  workflow_dispatch:
+
 
 env:
   APISIX_IMAGE_TAG: "local-debian-dev"
@@ -33,11 +24,11 @@ jobs:
 
       - name: Checkout APISIX code
         run: |
-          git clone https://github.com/apache/apisix.git
+          git clone https://github.com/arbor-95/local-apisix.git
 
       - name: Build image
         env:
-          LOCAL_CODE_PATH: ./apisix
+          LOCAL_CODE_PATH: ./local-apisix
         run: |
           make build-on-debian-local-dev
 
