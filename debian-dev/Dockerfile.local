@@ -27,6 +27,8 @@ ENV ENV_INST_LUADIR /usr/local/apisix
 
 COPY ${CODE_PATH} /apisix
 
+RUN set -x && echo ${CODE_PATH}
+
 WORKDIR /apisix
 
 RUN set -x \
