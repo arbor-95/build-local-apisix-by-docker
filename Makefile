@@ -89,6 +89,7 @@ build-on-debian-dev:
 .PHONY: build-on-debian-local-dev
 build-on-debian-local-dev:
 	@$(call func_echo_status, "$@ -> [ Start ]")
+	@echo "LOCAL_CODE_PATH: $(LOCAL_CODE_PATH)"
 ifeq ($(LOCAL_CODE_PATH), 0)
 ifeq ($(shell test -d ./apisix && echo -n yes), )
 	git clone -b $(APISIX_REPO_BRANCH) $(APISIX_REPO) ./apisix
