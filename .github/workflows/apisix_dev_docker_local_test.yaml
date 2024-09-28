@@ -39,7 +39,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{env.APISIX_IMAGE_NAME}}
+          name: ${{env.APISIX_IMAGE_NAME}}.tar
           path: ${{env.APISIX_IMAGE_NAME}}.tar
           retention-days: 1
 
