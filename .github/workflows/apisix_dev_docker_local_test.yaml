@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{env.APISIX_IMAGE_NAME}}
-          path: ${APISIX_IMAGE_NAME}.tar
+          path: ${{env.APISIX_IMAGE_NAME}}.tar
           retention-days: 1
 
       - name: Clean up
