@@ -3,7 +3,7 @@ name: test
 on:
   workflow_dispatch:
 env:
-  APISIX_IMAGE_TAG: nginx:latest
+  APISIX_IMAGE_TAG: nginx
 
 jobs:
 
